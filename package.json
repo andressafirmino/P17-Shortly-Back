@@ -1,0 +1,30 @@
+{
+  "name": "projeto17-shortly",
+  "type": "module",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "npx nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andressafirmino/P17-Shortly-Back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andressafirmino/P17-Shortly-Back/issues"
+  },
+  "homepage": "https://github.com/andressafirmino/P17-Shortly-Back#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "joi": "^17.9.2",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.2"
+  }
+}
