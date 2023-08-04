@@ -34,6 +34,19 @@ export async function getUrlId(req, res) {
     }
 }
 
+export async function getUrlOpen(req, res) {
+    const {shortUrl} = req.params;
+    try {
+        const short = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
+        if(short.rows.length === 0) {
+            return res.status(404).send({message: "URL não encontrada!"});
+        }
+        res.redirect(`/urls/open/${short.rows[0].url}`);
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+}
+
 
 
 
