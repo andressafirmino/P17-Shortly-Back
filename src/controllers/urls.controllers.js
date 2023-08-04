@@ -48,6 +48,18 @@ export async function getUrlOpen(req, res) {
     }
 }
 
+export async function deleteUrl (req, res) {
+    const { authorization } = req.headers;
+    const token = authorization?.replace("Bearer ", "");
+    try {
+        const logged = await db.query(`SELECT * FROM logged WHERE token = $1;`, [token]);
+        if (logged.rows.length === 0) {
+            return res.status(401).send({ message: "Usuário não autorizado!" });
+        }
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+}
 
 
 
