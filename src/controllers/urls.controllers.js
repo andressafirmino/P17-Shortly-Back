@@ -21,6 +21,15 @@ export async function postUrls(req, res) {
     }
 }
 
+export async function getUrlId(req, res) {
+    const {id} = req.params;
+    try {
+        res.sendStatus(200);
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+}
+
  
 
 
