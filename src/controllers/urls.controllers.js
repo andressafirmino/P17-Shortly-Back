@@ -57,15 +57,14 @@ export async function deleteUrl (req, res) {
         if (logged.rows.length === 0) {
             return res.status(401).send({ message: "Usuário não autorizado!" });
         }
-        const deleteId = await db.query(`
-        SELECT urls.*, shorts.*, logged.*, users.*
-        FROM users 
-        JOIN logged ON logged.email = users.email
-        JOIN shorts ON shorts."userId" = users.id
-        JOIN urls ON urls.id = shorts."shortId"
-        ;`);
-        if(deleteId.rows[0].length) {
-            return res.status(401).send({ message: "Usuário não autorizado!" });
+        const url = await db.query(`SELECT * FROM urls WHERE id = $1;`, [id]);
+        if(url.rows.length === 0) {
+            return res.status(404).send({ message: "URL não encontrada!" });
+        }
+        const user = await db.query(`SELECT * FROM users WHERE email = $1;`, [logged.rows[0].email]);
+        const shortUrl = await db.query(`SELECT * FROM shorts WHERE "userId" = $1 AND "shortId" = $2;`, [user.rows[0].id, id]);
+        if(shortUrl.rows.length === 0) {
+            return res.status(401).send({message: "O usuário não tem autorização para deletar essa URL!"});
         }
         await db.query(`DELETE FROM shorts WHERE "shortId" = $1;`, [id]);
         await db.query(`DELETE FROM urls WHERE id = $1;`, [id]);
