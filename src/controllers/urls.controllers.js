@@ -24,6 +24,10 @@ export async function postUrls(req, res) {
 export async function getUrlId(req, res) {
     const {id} = req.params;
     try {
+        const shortId = await db.query(`SELECT * FROM urls WHERE id = $1;`, [id]);
+        if(shortId.rows.length === 0) {
+            return res.status(404).send({message: "URL não encontrada!"});
+        }
         res.sendStatus(200);
     } catch (e) {
         res.status(500).send(e.message);
