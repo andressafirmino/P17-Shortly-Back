@@ -184,7 +184,6 @@ INSERT INTO public.shorts VALUES (2, 15, '2023-08-04 17:30:04.343684');
 --
 
 INSERT INTO public.urls VALUES (1, '5FyK6DnA', 'https://www.figma.com/file/DWg9233KR2GS6RLvfZRwyd/Shortly?type=design&node-id=0-1&mode=design&t=UI1H15lFHhCpa0K5-0', 0, '2023-08-04 16:21:08.917034');
-INSERT INTO public.urls VALUES (2, 'O7qLWqiv', 'https://www.figma.com/file/DWg9233KR2GS6RLvfZRwyd/Shortly?type=design&node-id=0-1&mode=design&t=UI1H15lFHhCpa0K5-0', 0, '2023-08-04 16:27:20.64952');
 INSERT INTO public.urls VALUES (3, 'kt8bvkcU', 'https://www.figma.com/file/DWg9233KR2GS6RLvfZRwyd/Shortly?type=design&node-id=0-1&mode=design&t=UI1H15lFHhCpa0K5-0', 0, '2023-08-04 16:27:24.287169');
 INSERT INTO public.urls VALUES (4, 'zPiuKzZT', 'https://www.figma.com/file/DWg9233KR2GS6RLvfZRwyd/Shortly?type=design&node-id=0-1&mode=design&t=UI1H15lFHhCpa0K5-0', 0, '2023-08-04 16:27:26.117652');
 INSERT INTO public.urls VALUES (5, 'BCERAsMF', 'https://bogus-tide.net', 0, '2023-08-04 16:36:16.384612');
@@ -198,6 +197,7 @@ INSERT INTO public.urls VALUES (12, 'McFprdvz', 'http://confused-cloak.biz', 0, 
 INSERT INTO public.urls VALUES (13, 'linFxltE', 'http://confused-cloak.biz', 0, '2023-08-04 16:56:11.64161');
 INSERT INTO public.urls VALUES (14, 'K-f0LfeU', 'http://confused-cloak.biz', 0, '2023-08-04 16:59:40.376539');
 INSERT INTO public.urls VALUES (15, 'EoHl2cjv', 'http://confused-cloak.biz', 0, '2023-08-04 17:30:04.330496');
+INSERT INTO public.urls VALUES (2, 'O7qLWqiv', 'https://www.figma.com/file/DWg9233KR2GS6RLvfZRwyd/Shortly?type=design&node-id=0-1&mode=design&t=UI1H15lFHhCpa0K5-0', 2, '2023-08-04 16:27:20.64952');
 
 
 --
