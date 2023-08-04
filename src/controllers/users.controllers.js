@@ -26,8 +26,11 @@ export async function signIn(req, res) {
 
     try {
         const user = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
+        if (user.rows.length === 0) {
+            return res.status(401).send({ message: "Usuário e/ou senha inválido!" });
+        }
         const compare = bcrypt.compareSync(password, user.rows[0].password);
-        if (!compare || user.rows.length === 0) {
+        if (!compare || (!compare && user.rows.length === 0)) {
             return res.status(401).send({ message: "Usuário e/ou senha inválido!" });
         }
         const token = uuid();
