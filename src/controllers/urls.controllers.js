@@ -15,25 +15,26 @@ export async function postUrls(req, res) {
         await db.query(`INSERT INTO urls ("shortUrl", url) VALUES ($1, $2);`, [shortUrl, url]);
         const short = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
         await db.query(`INSERT INTO shorts ("userId", "shortId") VALUES ($1, $2);`, [user.rows[0].id, short.rows[0].id]);
-        res.status(201).send({"id": short.rows[0].id, shortUrl});
+        res.status(201).send({ "id": short.rows[0].id, shortUrl });
     } catch (e) {
         res.status(500).send(e.message);
     }
 }
 
 export async function getUrlId(req, res) {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
         const shortId = await db.query(`SELECT * FROM urls WHERE id = $1;`, [id]);
-        if(shortId.rows.length === 0) {
-            return res.status(404).send({message: "URL não encontrada!"});
+        if (shortId.rows.length === 0) {
+            return res.status(404).send({ message: "URL não encontrada!" });
         }
-        res.sendStatus(200);
+        console.log(shortId.rows);
+        res.status(200).send({ id: shortId.rows[0].id, shortUrl: shortId.rows[0].shortUrl, url: shortId.rows[0].url });
     } catch (e) {
         res.status(500).send(e.message);
     }
 }
 
- 
+
 
 
