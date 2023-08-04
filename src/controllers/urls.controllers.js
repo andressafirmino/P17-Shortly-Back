@@ -51,11 +51,26 @@ export async function getUrlOpen(req, res) {
 export async function deleteUrl (req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
+    const {id} = req.params;
     try {
         const logged = await db.query(`SELECT * FROM logged WHERE token = $1;`, [token]);
         if (logged.rows.length === 0) {
             return res.status(401).send({ message: "Usuário não autorizado!" });
         }
+        const deleteId = await db.query(`
+        SELECT urls.*, shorts.*, logged.*, users.*
+        FROM users 
+        JOIN logged ON logged.email = users.email
+        JOIN shorts ON shorts."userId" = users.id
+        JOIN urls ON urls.id = shorts."shortId"
+        ;`);
+        if(deleteId.rows[0].length) {
+            return res.status(401).send({ message: "Usuário não autorizado!" });
+        }
+        await db.query(`DELETE FROM shorts WHERE "shortId" = $1;`, [id]);
+        await db.query(`DELETE FROM urls WHERE id = $1;`, [id]);
+        
+        res.sendStatus(204);
     } catch (e) {
         res.status(500).send(e.message);
     }
