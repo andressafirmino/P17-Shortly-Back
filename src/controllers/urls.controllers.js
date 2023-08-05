@@ -77,7 +77,19 @@ export async function deleteUrl(req, res) {
 
 export async function ranking(req, res) {
     try {
-        res.status(200).send();
+        const ranking = await db.query(`
+        SELECT users.id, users.name,
+        CAST(COUNT(shorts."userId")AS INTEGER) AS "linksCount",
+        CAST(SUM(urls."visitCount")AS INTEGER) AS "visitCount"
+        FROM users
+        JOIN shorts ON users.id = shorts."userId"
+        JOIN urls ON urls.id = shorts."shortId"
+        WHERE users.id = shorts."userId"
+        GROUP BY users.id
+        ORDER BY "visitCount" DESC
+        LIMIT 10
+    ;`)
+    res.status(200).send(ranking.rows);
     } catch (e) {
         res.status(500).send(e.message);
     }
