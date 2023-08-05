@@ -40,3 +40,18 @@ export async function signIn(req, res) {
         res.status(500).send(e.message);
     }
 }
+
+export async function getUser(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization?.replace("Bearer ", "");
+
+    try {
+        const logged = await db.query(`SELECT * FROM logged WHERE token = $1;`, [token]);
+        if (logged.rows.length === 0) {
+            return res.status(401).send({ message: "Usuário não autorizado!" });
+        }
+        res.status(200).send("ok");
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+}
