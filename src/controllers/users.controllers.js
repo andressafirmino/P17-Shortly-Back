@@ -50,7 +50,19 @@ export async function getUser(req, res) {
         if (logged.rows.length === 0) {
             return res.status(401).send({ message: "Usuário não autorizado!" });
         }
-        res.status(200).send("ok");
+
+        const userMe = await db.query(`SELECT users.id, users.name,
+        CAST(SUM(urls."visitCount")AS INTEGER) AS "visitCount",
+        json_agg(
+            json_build_object('id', urls.id, 'shortUrl', urls."shortUrl", 'url', urls.url, 'visitCount', urls."visitCount")
+        ) AS shortenedUrls
+        FROM users
+        JOIN shorts ON shorts."userId" = users.id
+        JOIN urls ON urls.id = shorts."shortId"
+        WHERE users.email = $1
+        GROUP BY users.id, users.name
+    ;`, [logged.rows[0].email]);
+        res.status(200).send(userMe.rows[0]);
     } catch (e) {
         res.status(500).send(e.message);
     }
