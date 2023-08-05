@@ -55,7 +55,7 @@ export async function getUser(req, res) {
         CAST(SUM(urls."visitCount")AS INTEGER) AS "visitCount",
         json_agg(
             json_build_object('id', urls.id, 'shortUrl', urls."shortUrl", 'url', urls.url, 'visitCount', urls."visitCount")
-        ) AS shortenedUrls
+        ) AS "shortenedUrls"
         FROM users
         JOIN shorts ON shorts."userId" = users.id
         JOIN urls ON urls.id = shorts."shortId"
