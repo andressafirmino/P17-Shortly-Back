@@ -88,12 +88,13 @@ export async function ranking(req, res) {
         GROUP BY users.id
         ORDER BY "visitCount" DESC
         LIMIT 10
-    ;`)
+    ;`);
     res.status(200).send(ranking.rows);
     } catch (e) {
         res.status(500).send(e.message);
     }
 }
+
 
 
 
