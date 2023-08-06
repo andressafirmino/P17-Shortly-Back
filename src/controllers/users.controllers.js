@@ -35,7 +35,7 @@ export async function signIn(req, res) {
         }
         const token = uuid();
         await login(user.rows[0].name, email, token);
-        res.status(200).send({ token });
+        res.status(200).send({ token, name: user.rows[0].name });
     } catch (e) {
         res.status(500).send(e.message);
     }
