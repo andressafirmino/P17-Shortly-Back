@@ -25,7 +25,7 @@ export async function signIn(req, res) {
     const { email, password } = req.body;
 
     try {
-        const user = await createUser(email);
+        const user = await checkEmail(email);
         if (user.rows.length === 0) {
             return res.status(401).send({ message: "Usuário e/ou senha inválido!" });
         }
