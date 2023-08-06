@@ -1,6 +1,7 @@
 import { db } from "../database/database.js";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
+import { createUser } from "../repository/users.repository.js";
 
 export async function signUp(req, res) {
     const { name, email, password, confirmPassword } = req.body;
@@ -9,7 +10,7 @@ export async function signUp(req, res) {
         if (password !== confirmPassword) {
             return res.status(422).send({ message: "As senhas são diferentes!" });
         }
-        const user = await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
+        const user = await createUser(name);
         if (user.rows.length !== 0) {
             return res.status(409).send({ message: "Usuário já cadastrado!" });
         }
