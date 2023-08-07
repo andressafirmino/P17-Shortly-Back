@@ -43,7 +43,7 @@ export async function getUrlOpen(req, res) {
             return res.status(404).send({ message: "URL não encontrada!" });
         }
         await updateCount(short.rows[0].visitCount, shortUrl)
-        res.redirect(`/urls/open/${short.rows[0].url}`);
+        res.redirect(short.rows[0].url);
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -84,7 +84,6 @@ export async function ranking(req, res) {
         res.status(500).send(e.message);
     }
 }
-
 
 
 
